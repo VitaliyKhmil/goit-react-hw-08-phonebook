@@ -1,0 +1,20 @@
+.header{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  background-color: #31f589;
+  height: 70px;
+
+  font-size: 20px;
+  padding: 0 40px  0 40px;
+  margin-right: auto;
+   margin-left: auto;
+   margin-bottom: 20px;
+}
+.link {
+  color: gray;
+  font-size: 25px;
+  margin-right: 100px;
+
+}
+
