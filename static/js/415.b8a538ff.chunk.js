@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgoit_react_hw_08_phonebook=self.webpackChunkgoit_react_hw_08_phonebook||[]).push([[415],{5415:function(e,n,t){t.r(n);var c=t(1910),o=t(184);n.default=function(){return(0,o.jsx)(c.x,{display:"flex",flexDirection:"column",alignItems:"center",children:(0,o.jsx)("h1",{children:'"You always can add new contacts, edit or delete already existing contacts"'})})}},1910:function(e,n,t){t.d(n,{x:function(){return a}});var c=t(1727),o=t(407),a=(0,c.Z)("div")(o.$_,o.Dh,o.bK,o.GQ,o.Oq,o.Cg)}}]);
+//# sourceMappingURL=415.b8a538ff.chunk.js.map
