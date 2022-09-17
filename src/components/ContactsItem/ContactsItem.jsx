@@ -1,6 +1,6 @@
 import style from './ContactsItem.module.css';
 import PropTypes from 'prop-types';
-
+import Notiflix from 'notiflix';
 import { contactsSlice } from 'redux/contacts';
 import { LoaderMini } from 'components/Loader/Loader';
 
@@ -16,7 +16,7 @@ function ContactsItem({ contact }) {
       <button
         className={style.button}
         type="button"
-        onClick={() => deleteTodo(contact.id)}
+        onClick={() => deleteTodo(contact.id) && Notiflix.Notify.failure(`${contact.name} Delete in contacts`)}
         disabled={isDeleting}
       >
         {isDeleting ? <LoaderMini /> : <span>Delete</span>}

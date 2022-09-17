@@ -34,12 +34,7 @@ code {
          text-align: center;
          color: gray;
     }
-    form {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: 350px;
-}
+ 
 li{
   display: flex;
 }

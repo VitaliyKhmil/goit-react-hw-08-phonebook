@@ -2,6 +2,7 @@ import { useState } from 'react';
 import style from './Form.module.css';
 import { contactsSlice } from 'redux/contacts';
 import { Loader } from 'components/Loader/Loader';
+import Notiflix from 'notiflix';
 
 function Form() {
   const [createContact, { isLoading }] =
@@ -10,7 +11,7 @@ function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  // берем данные value каждого input
+  
   const handleChange = evt => {
     const { name, value } = evt.currentTarget;
     switch (name) {
@@ -30,7 +31,7 @@ function Form() {
     e.preventDefault();
     const normalzeName = contact.name.toLocaleLowerCase();
     if (contacts.find(item => item.name.toLocaleLowerCase() === normalzeName)) {
-      return alert(`${contact.name} is already in contacts`);
+      return Notiflix.Notify.failure(`${contact.name} is already in contacts`);      
     }
     await createContact(contact);
     reset();

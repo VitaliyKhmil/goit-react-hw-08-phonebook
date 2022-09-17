@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import authOperations from 'redux/auth/authOperations';
 import style from 'components/Form/Form.module.css';
+import { Box } from 'styles/Box';
 
 const RegisterView = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,13 @@ const RegisterView = () => {
   };
 
   return (
-    <div>
+    <Box
+      display="flex"
+      align-items="center"
+      flexDirection="column"
+      margin="0 auto"
+      width="350px"
+    >
       <h1>REGISTRATION</h1>
       <form onSubmit={handleSubmit}>
         <label className={style.label}>
@@ -72,7 +79,7 @@ const RegisterView = () => {
           </button>
         </div>
       </form>
-    </div>
+    </Box>
   );
 };
 

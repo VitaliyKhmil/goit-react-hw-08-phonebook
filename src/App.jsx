@@ -1,10 +1,9 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, Suspense, lazy } from 'react';
 import operations from 'redux/auth/authOperations';
 import authSelectors from 'redux/auth/authSelectors';
 
-import AppBar from './components/AppBar';
 import { Loader } from './components/Loader/Loader';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
@@ -20,6 +19,11 @@ const ContactsView = lazy(() =>
   import(
     'pages/ContactsView/ContactsView')
 );
+const Home = lazy(() =>
+  import('pages/Home'));
+  
+const Layout = lazy(() =>
+  import('layout/Layout'));
 
 function App() {
   const dispatch = useDispatch();
@@ -32,29 +36,51 @@ function App() {
   return isFetchCurrentUser ? (
     <Loader />
   ) : (
-    <div>
-      <AppBar />
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Routes>
-          <Route element={<PublicRoute restricted redirectTo="contacts" />}>
-            <Route path="/" element={<LoginView />} />
-          </Route>
-          <Route element={<PublicRoute restricted redirectTo="contacts" />}>
-            <Route path="register" element={<RegisterView />} />
-          </Route>
-          <Route element={<PublicRoute restricted redirectTo="contacts" />}>
-            <Route path="login" element={<LoginView />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path="contacts" element={<ContactsView />} />
-          </Route>
-          <Route element={<PublicRoute restricted redirectTo="contacts" />}>
-            <Route path="*" element={<Navigate to="login" />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </div>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            path="/"
+            element={<PublicRoute component={<Home />} />}
+          />
+          <Route
+            path="register"
+            element={
+              <PublicRoute
+                restricted
+                redirectTo="contacts"
+                component={<RegisterView />}
+              />
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <PublicRoute
+                restricted
+                redirectTo="contacts"
+                component={<LoginView />}
+              />
+            }
+          />
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute redirectTo="login" component={<ContactsView />} />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
-}
+};
 
 export default App;
+
+        
+
+       
+    
+

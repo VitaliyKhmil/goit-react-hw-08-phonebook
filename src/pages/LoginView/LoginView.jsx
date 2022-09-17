@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import operations from 'redux/auth/authOperations';
 import style from 'components/Form/Form.module.css';
+import { Box } from 'styles/Box';
 
 const LoginView = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,13 @@ const LoginView = () => {
     setPassword('');
   };
   return (
-    <div>
+    <Box
+      display="flex"
+      align-items="center"
+      flexDirection="column"
+      margin="0 auto"
+      width="350px"
+    >
       <h1>USER LOGIN</h1>
       <form onSubmit={hadleSubmit}>
         <label className={style.label}>
@@ -58,7 +65,7 @@ const LoginView = () => {
           </button>
         </div>
       </form>
-    </div>
+    </Box>
   );
 };
 

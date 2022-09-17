@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import style from 'components/UserMenu/UserMenu.module.css';
+import style from 'layout/UserMenu/UserMenu.module.css';
 
 const NavAuth = () => {
   return (

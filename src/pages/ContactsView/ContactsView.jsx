@@ -1,16 +1,17 @@
 import ContactList from 'components/ContactList';
 import Form from 'components/Form';
 import Filter from 'components/Filter';
+import { Box } from 'styles/Box';
 
 const ContactsView = () => {
   return (
-    <div>
-      <h1>Phonebook</h1>
+    <Box display="flex" align-items="center" flexDirection="column" >
       <Form />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-    </div>
+      <Box display="flex" align-items="center" flexDirection="column">
+        <Filter />
+        <ContactList />
+      </Box>
+    </Box>
   );
 };
 
