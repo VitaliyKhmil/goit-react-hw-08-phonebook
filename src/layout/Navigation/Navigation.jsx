@@ -1,14 +1,12 @@
-// import UserMenu from 'layout/UserMenu';
-import { useSelector } from 'react-redux';
-import authSelectors from 'redux/auth/authSelectors';
+import { useAuth } from 'hooks/useAuth';
 import { HomeLink, NavStyle } from './Navigation.style';
 
 const Navigation = () => {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const isLoggedIn = useAuth();
   return (
     <NavStyle>
       <HomeLink to="/">Home</HomeLink>
-      {isLoggedIn && <HomeLink to="/login">Phonebook</HomeLink>}
+      {isLoggedIn && <HomeLink to="/contacts">Phonebook</HomeLink>}
     </NavStyle>
   );
 };

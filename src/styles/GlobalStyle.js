@@ -11,7 +11,7 @@ code {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;     
   letter-spacing: -0.2px;
-  background-color: #31f589;
+  background-color: rgb(21, 188, 194);
     }
     ul {
         padding: 0;
@@ -38,5 +38,7 @@ code {
 li{
   display: flex;
 }
-
+img{
+background-color: #31f589;
+}
 `;

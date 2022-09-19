@@ -1,39 +1,26 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, Suspense, lazy } from 'react';
-import operations from 'redux/auth/authOperations';
-import authSelectors from 'redux/auth/authSelectors';
-
+import { operations  } from 'redux/authSlice';
 import { Loader } from './components/Loader/Loader';
-import PrivateRoute from './components/Routes/PrivateRoute';
-import PublicRoute from './components/Routes/PublicRoute';
+import PrivateRoute from './routes/PrivateRoute';
+import PublicRoute from './routes/PublicRoute';
+import { useAuth } from 'hooks/useAuth';
 
-const LoginView = lazy(() =>
-  import('pages/LoginView/LoginView')
-);
-const RegisterView = lazy(() =>
-  import(
-    'pages/RegisterView/RegisterView')
-);
-const ContactsView = lazy(() =>
-  import(
-    'pages/ContactsView/ContactsView')
-);
-const Home = lazy(() =>
-  import('pages/Home'));
-  
-const Layout = lazy(() =>
-  import('layout/Layout'));
+const Login = lazy(() => import('pages/LoginView/LoginView'));
+const Register = lazy(() => import('pages/RegisterView/RegisterView'));
+const Contacts = lazy(() => import('pages/ContactsView/ContactsView'));
+const Home = lazy(() => import('pages/Home'));
+const Layout = lazy(() => import('layout/Layout'));
 
 function App() {
   const dispatch = useDispatch();
-  const isFetchCurrentUser = useSelector(authSelectors.getIsFetchCurrentUser);
-  console.log(isFetchCurrentUser);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(operations.fetchCurrentUser());
   }, [dispatch]);
-  return isFetchCurrentUser ? (
+  return isRefreshing ? (
     <Loader />
   ) : (
     <Suspense fallback={<h1>Loading...</h1>}>
@@ -50,7 +37,7 @@ function App() {
               <PublicRoute
                 restricted
                 redirectTo="contacts"
-                component={<RegisterView />}
+                component={<Register />}
               />
             }
           />
@@ -60,14 +47,14 @@ function App() {
               <PublicRoute
                 restricted
                 redirectTo="contacts"
-                component={<LoginView />}
+                component={<Login />}
               />
             }
           />
           <Route
             path="contacts"
             element={
-              <PrivateRoute redirectTo="login" component={<ContactsView />} />
+              <PrivateRoute redirectTo="login" component={<Contacts />} />
             }
           />
           <Route path="*" element={<Navigate to="/" />} />

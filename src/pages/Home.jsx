@@ -1,12 +1,13 @@
 import { Box } from 'styles/Box';
+import imgDesktop from 'images/phone2.gif';
 
 const Home = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <h1>
-        "You always can add new contacts, edit or delete already existing
-        contacts"
-      </h1>
+      <picture>
+        <source srcSet={imgDesktop} />
+      </picture>
+      <img className='phonebook' src={imgDesktop} alt="phone" />      
     </Box>
   );
 };

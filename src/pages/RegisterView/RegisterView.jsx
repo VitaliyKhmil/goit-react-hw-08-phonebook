@@ -1,86 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import authOperations from 'redux/auth/authOperations';
-import style from 'components/Form/Form.module.css';
-import { Box } from 'styles/Box';
+import  RegisterView  from 'components/auth/Registration/Register';
 
-const RegisterView = () => {
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleChange = evt => {
-    const { name, value } = evt.currentTarget;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'email':
-        setEmail(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(authOperations.register({ name, email, password }));
-    setPassword('');
-  };
-
+const Register = () => {
   return (
-    <Box
-      display="flex"
-      align-items="center"
-      flexDirection="column"
-      margin="0 auto"
-      width="350px"
-    >
-      <h1>REGISTRATION</h1>
-      <form onSubmit={handleSubmit}>
-        <label className={style.label}>
-          Name
-          <input
-            type="name"
-            name="name"
-            value={name}
-            onChange={handleChange}
-            className={style.input}
-          />
-        </label>
-        <label className={style.label}>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            className={style.input}
-          />
-        </label>
-        <label className={style.label}>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            className={style.input}
-          />
-        </label>
-        <div className={style.buttonDiv}>
-          <button type="submit" className={style.button}>
-            REGISTER
-          </button>
-        </div>
-      </form>
-    </Box>
+    <>
+      <RegisterView />
+    </>
   );
 };
 
-export default RegisterView;
+export default Register;

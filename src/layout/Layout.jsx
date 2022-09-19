@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Box } from 'styles/Box';
-import { AppBar } from '../layout/AppBar/AppBar';
+import { AppBar } from './AppBar/AppBar';
 
 export const Layout = () => {
   return (

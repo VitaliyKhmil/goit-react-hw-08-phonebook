@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import style from './Form.module.css';
-import { contactsSlice } from 'redux/contacts';
+import { contactsSlice } from 'redux/contactsSlice';
 import { Loader } from 'components/Loader/Loader';
 import Notiflix from 'notiflix';
 
@@ -29,8 +29,8 @@ function Form() {
   const handleSubmit = async e => {
     const contact = { name, number };
     e.preventDefault();
-    const normalzeName = contact.name.toLocaleLowerCase();
-    if (contacts.find(item => item.name.toLocaleLowerCase() === normalzeName)) {
+    const normalzeName = contact.name.toLowerCase();
+    if (contacts.find(item => item.name.toLowerCase() === normalzeName)) {
       return Notiflix.Notify.failure(`${contact.name} is already in contacts`);      
     }
     await createContact(contact);

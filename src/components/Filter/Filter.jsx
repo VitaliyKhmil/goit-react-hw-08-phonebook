@@ -1,28 +1,24 @@
 import React from 'react';
 import style from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterSlice } from 'redux/contacts';
+import { filterItems, getFilterWord } from 'redux/contactsSlice';
 
 function Filter() {
   const dispatch = useDispatch();
-  const value = useSelector(filterSlice.getFilter);
+  const filter = useSelector(getFilterWord);
 
-  const changeFilter = e => {
-    dispatch(filterSlice.filterItems(e.currentTarget.value));
-  };
-
-  return (
-    <label className={style.label}>
-      <span>Search by name:</span>
-      <input
-        type="text"
-        placeholder="enter a name..."
-        value={value}
-        onChange={changeFilter}
-        className={style.input}
-      />
-    </label>
-  );
+ return (
+   <label className={style.label}>
+     <span>Search by name:</span>
+     <input
+       type="text"
+       placeholder="enter a name..."
+       name= "value"
+       onChange={e => dispatch(filterItems(e.currentTarget.value))}
+       className={filter}
+     />
+   </label>
+ );
 }
 
 export default Filter;

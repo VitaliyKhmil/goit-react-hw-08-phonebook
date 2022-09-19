@@ -1,9 +1,9 @@
-import ContactList from 'components/ContactList';
-import Form from 'components/Form';
-import Filter from 'components/Filter';
+import {ContactList} from 'components/ContactList/ContactList';
+import Form from 'components/Form/Form';
+import Filter from 'components/Filter/Filter';
 import { Box } from 'styles/Box';
 
-const ContactsView = () => {
+const Contacts = () => {
   return (
     <Box display="flex" align-items="center" flexDirection="column" >
       <Form />
@@ -15,4 +15,4 @@ const ContactsView = () => {
   );
 };
 
-export default ContactsView;
+export default Contacts;
