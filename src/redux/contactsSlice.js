@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 import {
   fetchAddContact,
   fetchAllContacts,
@@ -13,7 +13,7 @@ export const fetchContacts = createAsyncThunk(
       const data = await fetchAllContacts();
       return data;
     } catch (error) {
-      toast.error('Oops, something went wrong!');
+      Notiflix.Notify.warning('Oops, something went wrong!');
       return rejectWithValue(error);
     }
   }
@@ -25,11 +25,11 @@ export const addItem = createAsyncThunk(
     try {
       await fetchAddContact(contact);
     } catch (error) {
-      toast.error('Oops, something went wrong!');
+      Notiflix.Notify.warning('Oops, something went wrong!');
       return rejectWithValue(error);
     } finally {
       const data = await fetchAllContacts();
-      toast.success('Contact added!');
+      Notiflix.Notify.warning('Contact added!');
       return data;
     }
   }
@@ -41,11 +41,11 @@ export const deleteItem = createAsyncThunk(
     try {
       await fetchDeleteContact(id);
     } catch (error) {
-      toast.error('Contact not found!');
+      Notiflix.Notify.warning('Contact not found!');
       return rejectWithValue(error);
     } finally {
       const data = await fetchAllContacts();
-      toast.success('Contact deleted!');
+      Notiflix.Notify.warning('Contact deleted!');
       return data;
     }
   }
