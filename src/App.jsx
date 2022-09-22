@@ -1,73 +1,38 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useEffect, Suspense, lazy } from 'react';
-import { operations  } from 'redux/authSlice';
-import { Loader } from './components/Loader/Loader';
-import PrivateRoute from './routes/PrivateRoute';
-import PublicRoute from './routes/PublicRoute';
-import { useAuth } from 'hooks/useAuth';
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { PublicRoute } from 'routes/PublicRoute';
+import { PrivateRoute } from 'routes/PrivateRoute';
 
-const Login = lazy(() => import('pages/LoginView/LoginView'));
-const Register = lazy(() => import('pages/RegisterView/RegisterView'));
-const Contacts = lazy(() => import('pages/ContactsView/ContactsView'));
-const Home = lazy(() => import('pages/Home'));
-const Layout = lazy(() => import('layout/Layout'));
+import { Layout } from 'layout/Layout';
+import   Home  from 'pages/Home';
+import  RegisterView  from 'pages/RegisterView/RegisterView';
+import LoginView from 'pages/LoginView/LoginView';
+import  ContactsView  from 'pages/ContactsView/ContactsView';
 
-function App() {
-  const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
-
-  useEffect(() => {
-    dispatch(operations.fetchCurrentUser());
-  }, [dispatch]);
-  return isRefreshing ? (
-    <Loader />
-  ) : (
+export const App = () => {
+  return (
     <Suspense fallback={<h1>Loading...</h1>}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route
-            index
             path="/"
-            element={<PublicRoute component={<Home />} />}
+            index
+            element={<PublicRoute restricted component={<Home />} />}
           />
           <Route
             path="register"
-            element={
-              <PublicRoute
-                restricted
-                redirectTo="contacts"
-                component={<Register />}
-              />
-            }
+            element={<PublicRoute restricted component={<RegisterView />} />}
           />
           <Route
             path="login"
-            element={
-              <PublicRoute
-                restricted
-                redirectTo="contacts"
-                component={<Login />}
-              />
-            }
+            element={<PublicRoute restricted component={<LoginView />} />}
           />
           <Route
             path="contacts"
-            element={
-              <PrivateRoute redirectTo="login" component={<Contacts />} />
-            }
+            element={<PrivateRoute component={<ContactsView />} />}
           />
-          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </Suspense>
   );
 };
-
-export default App;
-
-        
-
-       
-    
-

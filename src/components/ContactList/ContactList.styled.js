@@ -16,6 +16,7 @@ export const ContactsListItem = styled.li`
 
 export const ContactsListText = styled.p`
   margin: 0 15px;
+  font-size: large;
 `;
 
 export const ButtonDelete = styled.button`
@@ -31,8 +32,8 @@ export const ButtonDelete = styled.button`
   border: none;
   border-radius: 15px;
   box-shadow: 0 7px #999;  
-  &hover {background-color: rgb(247, 90, 90)};
-  &active {
+   &:hover {background-color: rgb(247, 90, 90)};
+   &:active {
   background-color: red;
   box-shadow: 0 5px #666;
   transform: translateY(4px)}`;

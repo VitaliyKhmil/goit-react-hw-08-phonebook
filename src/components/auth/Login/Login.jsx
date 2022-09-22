@@ -1,16 +1,23 @@
 import { useDispatch } from 'react-redux';
-import {operations} from 'redux/authSlice';
+import { useNavigate } from 'react-router-dom';
 import style from 'components/Form/Form.module.css';
 import { Box } from 'styles/Box';
+import { loginUser } from 'redux/authSlice';
 
 const LoginView = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  
-   const handleSubmit = (values, { resetForm }) => {
-     dispatch(operations.logIn(values));
-     resetForm();
-   };
+  const handleSubmit = e => {
+    e.preventDefault();
+    const user = {
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+    };
+    dispatch(loginUser(user));
+    navigate('/contacts');
+  };
+
   return (
     <Box
       display="flex"
@@ -23,21 +30,11 @@ const LoginView = () => {
       <form onSubmit={handleSubmit}>
         <label className={style.label}>
           Email
-          <input
-            type="email"
-            name="email"
-            // onChange={handleSubmit}
-            className={style.input}
-          />
+          <input type="email" name="email" className={style.input} />
         </label>
         <label className={style.label}>
           Password
-          <input
-            type="password"
-            name="password"
-            // onChange={handleSubmit}
-            className={style.input}
-          />
+          <input type="password" name="password" className={style.input} />
         </label>
         <div className={style.buttonDiv}>
           <button type="submit" className={style.button}>

@@ -1,19 +1,19 @@
-import { useDispatch } from 'react-redux';
-import { useAuth } from 'hooks/useAuth';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 import style from './UserMenu.module.css';
-import { operations } from 'redux/authSlice';
+import { logoutUser } from 'redux/authSlice';
 
 const UserMenu = () => {
   const dispatch = useDispatch();
-  const { user } = useAuth();
-   const logoutHandler = () => {
-     dispatch(operations.logOut());
-     <Navigate to="/" replace={true} />;
-   };
+  const name = useSelector(state => state.auth.user.name);
+  const logoutHandler = () => {
+    dispatch(logoutUser());
+    <Navigate to="/" replace={true} />;
+  };
+
   return (
     <div>
-      <span className={style.name}>{user}</span>
+      <span className={style.name}>{name}</span>
       <button className={style.button} type="button" onClick={logoutHandler}>
         LOG OUT
       </button>

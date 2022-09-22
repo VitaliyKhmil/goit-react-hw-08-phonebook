@@ -1,19 +1,22 @@
 import { useDispatch } from 'react-redux';
-import {operations} from 'redux/authSlice';
 import style from 'components/Form/Form.module.css';
 import { Box } from 'styles/Box';
+import { registerUser } from 'redux/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterView = () => {
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (values, { resetForm }) => {
-   const user = {
-     name: values.name,
-     email: values.email,
-     password: values.password,
-   };
-    dispatch(operations.register(user));
-    resetForm();
+  const handleSubmit = e => {
+    e.preventDefault();
+    const user = {
+      name: e.target.elements.name.value,
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+    };
+    dispatch(registerUser(user));
+    navigate('/contacts');
   };
 
   return (
@@ -25,32 +28,18 @@ const RegisterView = () => {
       width="350px"
     >
       <h1>REGISTRATION</h1>
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <label className={style.label}>
           Name
-          <input
-            type="name"
-            name="name"
-            className={style.input}
-          />
+          <input type="name" name="name" className={style.input} />
         </label>
         <label className={style.label}>
           Email
-          <input
-            type="email"
-            name="email"
-            className={style.input}
-          />
+          <input type="email" name="email" className={style.input} />
         </label>
         <label className={style.label}>
           Password
-          <input
-            type="password"
-            name="password"
-            className={style.input}
-          />
+          <input type="password" name="password" className={style.input} />
         </label>
         <div className={style.buttonDiv}>
           <button type="submit" className={style.button}>

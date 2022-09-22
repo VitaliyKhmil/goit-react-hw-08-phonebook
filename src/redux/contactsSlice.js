@@ -1,94 +1,99 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix';
+import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  fetchAddContact,
   fetchAllContacts,
+  fetchAddContact,
   fetchDeleteContact,
-} from 'api/ContactsApi';
+  fetchEditContact,
+} from 'api/contactsApi';
 
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchContacts',
-  async (_, { rejectWithValue }) => {
+
+const initialState = {
+  items: [],
+  filter: '',
+};
+
+
+export const getItems = state => state.contacts.items;
+export const getFilterValue = state => state.contacts.filter;
+
+export const getAllContactsAsync = createAsyncThunk(
+  'contacts/getAllContacts',
+  async () => {
     try {
       const data = await fetchAllContacts();
       return data;
     } catch (error) {
-      Notiflix.Notify.warning('Oops, something went wrong!');
-      return rejectWithValue(error);
+      Notify.failure(error.message);
     }
   }
 );
 
-export const addItem = createAsyncThunk(
-  'contacts/addItem',
-  async (contact, { rejectWithValue }) => {
+export const addNewContactAsync = createAsyncThunk(
+  'contacts/addContacts',
+  async contact => {
     try {
       await fetchAddContact(contact);
-    } catch (error) {
-      Notiflix.Notify.warning('Oops, something went wrong!');
-      return rejectWithValue(error);
-    } finally {
+      Notify.success('Contact added!');
       const data = await fetchAllContacts();
-      Notiflix.Notify.warning('Contact added!');
       return data;
+    } catch (error) {
+      Notify.failure(error.message);
     }
   }
 );
 
-export const deleteItem = createAsyncThunk(
+export const deleteContactAsync = createAsyncThunk(
   'contacts/deleteContact',
-  async (id, { rejectWithValue }) => {
+  async id => {
     try {
       await fetchDeleteContact(id);
-    } catch (error) {
-      Notiflix.Notify.warning('Contact not found!');
-      return rejectWithValue(error);
-    } finally {
+      Notify.success('Contact deleted!');
       const data = await fetchAllContacts();
-      Notiflix.Notify.warning('Contact deleted!');
       return data;
+    } catch (error) {
+      Notify.failure(error.message);
+    }
+  }
+);
+
+export const editContactAsync = createAsyncThunk(
+  'contacts/editContact',
+  async contact => {
+    try {
+      await fetchEditContact(contact);
+      Notify.success('Contact edited!');
+      const data = fetchAllContacts();
+      return data;
+    } catch (error) {
+      Notify.failure(error.message);
     }
   }
 );
 
 export const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    items: [],
-    filter: '',
+  initialState,
+  extraReducers: {
+    [getAllContactsAsync.fulfilled](state, action) {
+      state.items = [...action.payload];
+    },
+    [addNewContactAsync.fulfilled](state, action) {
+      state.items = [...action.payload];
+    },
+    [deleteContactAsync.fulfilled](state, action) {
+      state.items = [...action.payload];
+    },
+    [editContactAsync.fulfilled](state, action) {
+      state.items = [...action.payload];
+    },
   },
   reducers: {
     filterItems: (state, action) => {
       return { ...state, filter: action.payload };
     },
   },
-  extraReducers: {
-    [fetchContacts.fulfilled]: (state, action) => {
-      return {
-        ...state,
-        items: [...action.payload],
-      };
-    },
-
-    [addItem.fulfilled]: (state, action) => {
-      return {
-        ...state,
-        items: [...action.payload],
-      };
-    },
-
-    [deleteItem.fulfilled]: (state, action) => {
-      return {
-        ...state,
-        items: action.payload,
-      };
-    },
-  },
 });
 
 export const { filterItems } = contactsSlice.actions;
-
-export const getContact = state => state.contacts.items;
-export const getFilterWord = state => state.contacts.filter;
-
-export const contactsReducer = contactsSlice.reducer;

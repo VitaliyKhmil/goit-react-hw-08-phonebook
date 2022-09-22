@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import {
-  deleteItem,
-  getContact,
-  getFilterWord,
-  fetchContacts,
+  getItems,
+  getFilterValue,
+  getAllContactsAsync,
+  deleteContactAsync,
 } from 'redux/contactsSlice';
 import {
   ContactsList,
@@ -14,11 +14,11 @@ import {
 } from './ContactList.styled';
 
 
-export const ContactList = () => {
+export const ContactList = () => {  
   const dispatch = useDispatch();
 
-  const items = useSelector(getContact);
-  const filter = useSelector(getFilterWord);
+  const items = useSelector(getItems);
+  const filter = useSelector(getFilterValue);
 
   const normalizedValue = filter.toLowerCase();
   const filteredContacts = items.filter(option =>
@@ -26,29 +26,32 @@ export const ContactList = () => {
   );
 
   const deleteContact = contactId => {
-    dispatch(deleteItem(contactId));
+    dispatch(deleteContactAsync(contactId));
   };
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(getAllContactsAsync());
   }, [dispatch]);
 
   return (
     <ContactsList>
-      {filteredContacts.map(({ id, name, number }) => (
-        <ContactsListItem key={id}>
-          {name}: <ContactsListText>{number}</ContactsListText>
-          <ButtonDelete
-            type="button"
-            onClick={() => {
-              deleteContact(id);
-            }}
-          >
-            Delate
-          </ButtonDelete>
-        </ContactsListItem>
-      ))}
+      {filteredContacts.map(({ id, name, number }) => {
+        return (
+          <ContactsListItem key={id}>
+            {name}:<ContactsListText>{number}</ContactsListText>
+            <ButtonDelete
+              type="button"
+              onClick={() => {
+                deleteContact(id);
+              }}
+            >
+              Delate
+            </ButtonDelete>
+          </ContactsListItem>
+        );
+      })}
     </ContactsList>
   );
-};
+};   
+      
 

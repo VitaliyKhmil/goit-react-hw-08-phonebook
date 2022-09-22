@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import style from './Form.module.css';
-import { contactsSlice } from 'redux/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getAllContactsAsync,
+  addNewContactAsync,
+  getItems,
+} from 'redux/contactsSlice';
 import { Loader } from 'components/Loader/Loader';
 import Notiflix from 'notiflix';
 
 function Form() {
-  const [createContact, { isLoading }] =
-    contactsSlice.useCreateContactMutation();
-  const { data: contacts } = contactsSlice.useFetchContactsQuery();
+  const dispatch = useDispatch();
+  const contacts = useSelector(getItems);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  
   const handleChange = evt => {
     const { name, value } = evt.currentTarget;
     switch (name) {
@@ -26,14 +29,18 @@ function Form() {
     }
   };
 
+  useEffect(() => {
+    dispatch(getAllContactsAsync());
+  },);
+
   const handleSubmit = async e => {
-    const contact = { name, number };
     e.preventDefault();
+    const contact = { name, number };
     const normalzeName = contact.name.toLowerCase();
     if (contacts.find(item => item.name.toLowerCase() === normalzeName)) {
-      return Notiflix.Notify.failure(`${contact.name} is already in contacts`);      
+      return Notiflix.Notify.failure(`${contact.name} is already in contacts`);
     }
-    await createContact(contact);
+    dispatch(addNewContactAsync(contact));
     reset();
   };
 
@@ -72,7 +79,7 @@ function Form() {
       </label>
       <div className={style.buttonDiv}>
         <button type="submit" className={style.button}>
-          {isLoading ? <Loader /> : <div> Add contact</div>}
+          {false ? <Loader /> : <div> Add contact</div>}
         </button>
       </div>
     </form>
