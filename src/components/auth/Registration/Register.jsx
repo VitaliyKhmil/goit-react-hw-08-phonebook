@@ -2,11 +2,10 @@ import { useDispatch } from 'react-redux';
 import style from 'components/Form/Form.module.css';
 import { Box } from 'styles/Box';
 import { registerUser } from 'redux/authSlice';
-import { useNavigate } from 'react-router-dom';
+
 
 const RegisterView = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,7 +15,6 @@ const RegisterView = () => {
       password: e.target.elements.password.value,
     };
     dispatch(registerUser(user));
-    navigate('/contacts');
   };
 
   return (

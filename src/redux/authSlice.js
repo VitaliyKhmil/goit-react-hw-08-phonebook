@@ -63,7 +63,7 @@ export const authSlice = createSlice({
       state.user.email = action.payload.user.email;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      // localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('isLoggedIn', 'true');
     },
     [loginUser.fulfilled](state, action) {
       console.log(action);
