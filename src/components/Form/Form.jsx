@@ -31,7 +31,7 @@ function Form() {
 
   useEffect(() => {
     dispatch(getAllContactsAsync());
-  },);
+  }, []);
 
   const handleSubmit = async e => {
     e.preventDefault();

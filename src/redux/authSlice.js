@@ -63,6 +63,7 @@ export const authSlice = createSlice({
       state.user.email = action.payload.user.email;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      // localStorage.setItem('isLoggedIn', 'true');
     },
     [loginUser.fulfilled](state, action) {
       console.log(action);
@@ -70,12 +71,14 @@ export const authSlice = createSlice({
       state.user.email = action.payload.user.email;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      // localStorage.setItem('isLoggedIn', 'true');
     },
     [logoutUser.fulfilled](state) {
       state.user.name = '';
       state.user.email = null;
       state.token = null;
       state.isLoggedIn = false;
+      // localStorage.removeItem('isLoggedIn');
     },
   },
 });

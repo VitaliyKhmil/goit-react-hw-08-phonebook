@@ -6,14 +6,12 @@ const NavAuth = () => {
     <div>
       <button className={style.button}>
         <NavLink to="/register" className={style.link}>
-          {' '}
-          REGISTER
+         REGISTER
         </NavLink>
       </button>
       <button className={style.button}>
         <NavLink to="/login" className={style.link}>
-          {' '}
-          LOG IN
+         LOG IN
         </NavLink>
       </button>
     </div>

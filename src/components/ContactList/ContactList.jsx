@@ -13,8 +13,7 @@ import {
   ButtonDelete,
 } from './ContactList.styled';
 
-
-export const ContactList = () => {  
+export const ContactList = () => {
   const dispatch = useDispatch();
 
   const items = useSelector(getItems);
@@ -31,7 +30,7 @@ export const ContactList = () => {
 
   useEffect(() => {
     dispatch(getAllContactsAsync());
-  }, [dispatch]);
+  }, []);
 
   return (
     <ContactsList>
@@ -52,6 +51,4 @@ export const ContactList = () => {
       })}
     </ContactsList>
   );
-};   
-      
-
+};

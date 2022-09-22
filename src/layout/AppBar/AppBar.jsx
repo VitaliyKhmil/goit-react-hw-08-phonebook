@@ -6,12 +6,12 @@ import UserMenu from 'layout/UserMenu/UserMenu';
 
 export const AppBar = () => {
   const isLogged = useSelector(state => state.auth.isLogged);
-// const  = useSelector(state => state.auth.getLogging);
 
   return (
     <Header>
       <Navigation />
-      {isLogged ? <UserMenu /> : <NavAuth />}
+      {isLogged ? <UserMenu /> : <NavAuth /> }
+     
     </Header>
   );
 };

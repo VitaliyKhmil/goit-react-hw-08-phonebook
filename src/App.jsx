@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { PublicRoute } from 'routes/PublicRoute';
 import { PrivateRoute } from 'routes/PrivateRoute';
 
 import { Layout } from 'layout/Layout';
 import   Home  from 'pages/Home';
-import  RegisterView  from 'pages/RegisterView/RegisterView';
-import LoginView from 'pages/LoginView/LoginView';
-import  ContactsView  from 'pages/ContactsView/ContactsView';
+import Register from 'pages/RegisterView/RegisterView';
+import Login from 'pages/LoginView/LoginView';
+import Contacts from 'pages/ContactsView/ContactsView';
 
 export const App = () => {
   return (
@@ -21,16 +21,31 @@ export const App = () => {
           />
           <Route
             path="register"
-            element={<PublicRoute restricted component={<RegisterView />} />}
+            element={
+              <PublicRoute
+                restricted
+                redirectTo="contacts"
+                component={<Register />}
+              />
+            }
           />
           <Route
             path="login"
-            element={<PublicRoute restricted component={<LoginView />} />}
+            element={
+              <PublicRoute
+                restricted
+                redirectTo="contacts"
+                component={<Login />}
+              />
+            }
           />
           <Route
             path="contacts"
-            element={<PrivateRoute component={<ContactsView />} />}
+            element={
+              <PrivateRoute redirectTo="login" component={<Contacts />} />
+            }
           />
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </Suspense>

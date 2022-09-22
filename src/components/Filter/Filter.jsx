@@ -13,7 +13,8 @@ function Filter() {
      <input
        type="text"
        placeholder="enter a name..."
-       name="value"
+       name="filter"
+       value={filter}
        onChange={e => dispatch(filterItems(e.currentTarget.value))}
        className={style.input}
      />

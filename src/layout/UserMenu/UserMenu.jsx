@@ -8,12 +8,12 @@ const UserMenu = () => {
   const name = useSelector(state => state.auth.user.name);
   const logoutHandler = () => {
     dispatch(logoutUser());
-    <Navigate to="/" replace={true} />;
+    <Navigate to="/" replace={true} />
   };
 
   return (
     <div>
-      <span className={style.name}>{name}</span>
+      <span className={style.name}> Welcome {name}</span>
       <button className={style.button} type="button" onClick={logoutHandler}>
         LOG OUT
       </button>
