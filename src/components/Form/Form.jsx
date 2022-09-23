@@ -7,27 +7,7 @@ import Notiflix from 'notiflix';
 function Form() {
   const dispatch = useDispatch();
   const items = useSelector(getContact);
-  // const [name, setName] = useState('');
-  // const [number, setNumber] = useState('');
-
-  // const handleChange = evt => {
-  //   const { name, value } = evt.currentTarget;
-  //   switch (name) {
-  //     case 'name':
-  //       setName(value);
-  //       break;
-  //     case 'number':
-  //       setNumber(value);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(getAllContactsAsync());
-  // }, []);
-
+ 
   const handleSubmit = (values, { resetForm }) => {
     const newContact = {
       name: values.name,

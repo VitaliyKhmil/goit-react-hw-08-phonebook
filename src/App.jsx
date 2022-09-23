@@ -1,10 +1,10 @@
-import { lazy, Suspense} from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useAuth } from 'hooks/useAuth';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'hooks/useAuth';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import  PublicRoute  from 'routes/PublicRoute';
 import  PrivateRoute  from 'routes/PrivateRoute';
-// import { operations } from 'redux/authSlice';
+import { Loader } from './components/Loader/Loader';
 
 const Layout = lazy(() => import('layout/Layout'));
 const Home = lazy(() => import('pages/Home'));
@@ -14,9 +14,12 @@ const LogIn = lazy(() => import('pages/LoginView/LoginView'));
 
 
 export const App = () => {
+  const { isRefreshing } = useAuth();
   
-  return (
-    <Suspense fallback={<h1>Loading...</h1>}>
+  return isRefreshing ? (
+     <h1>Refreshing user...</h1>
+  ) : (
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route

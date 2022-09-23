@@ -1,4 +1,4 @@
-import { authApi } from './axios';
+import { authApi } from './authApi';
 
 export const fetchAllContacts = async () => {
   return await authApi.get('/contacts').then(response => response.data);

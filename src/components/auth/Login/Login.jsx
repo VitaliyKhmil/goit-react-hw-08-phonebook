@@ -1,6 +1,4 @@
 import { useDispatch } from 'react-redux';
-// import style from 'components/Form/Form.module.css';
-// import { Box } from 'styles/Box';
 import { operations } from 'redux/authSlice';
 import { Formik } from 'formik';
 import { FormEl } from 'components/auth/Login/FormEl';

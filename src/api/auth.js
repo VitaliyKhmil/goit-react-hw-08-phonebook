@@ -1,4 +1,4 @@
-import { authApi } from './axios';
+import { authApi } from './authApi';
 
 export const signUp = credentials =>
   authApi.post(`/users/signup`, credentials).then(response => response.data);
@@ -9,3 +9,4 @@ export const login = credentials =>
 export const logout = () =>
   authApi.post(`/users/logout`).then(response => response.data);
 
+ 

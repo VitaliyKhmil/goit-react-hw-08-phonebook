@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import style from 'components/Form/Form.module.css';
 import { Box } from 'styles/Box';
 import { operations } from 'redux/authSlice';
 import { Formik } from 'formik';
@@ -35,20 +34,18 @@ const RegisterView = () => {
         <FormEl>
           <label>
             Name
-            <input type="name" name="name"/>
+            <input type="name" name="name" />
           </label>
           <label>
             Email
-            <input type="email" name="email"/>
+            <input type="email" name="email" />
           </label>
           <label>
             Password
-            <input type="password" name="password"/>
+            <input type="password" name="password" />
           </label>
-          
-            <button type="submit">
-              REGISTER
-            </button>
+
+          <button type="submit">REGISTER</button>
         </FormEl>
       </Formik>
     </Box>
