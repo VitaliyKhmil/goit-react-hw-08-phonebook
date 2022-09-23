@@ -1,5 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { lazy, Suspense, } from 'react';
 import { useAuth } from 'hooks/useAuth';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import  PublicRoute  from 'routes/PublicRoute';

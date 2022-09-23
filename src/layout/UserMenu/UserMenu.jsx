@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import style from './UserMenu.module.css';
 import { operations } from 'redux/authSlice';
 import { useAuth } from 'hooks/useAuth';
 import { Box } from 'styles/Box';
