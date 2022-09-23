@@ -1,6 +1,6 @@
-import  RegisterView  from 'components/auth/Registration/Register';
+import RegisterView from 'components/auth/Registration/Register';
 
-const Register = () => {
+const SignUp = () => {
   return (
     <>
       <RegisterView />
@@ -8,4 +8,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignUp;

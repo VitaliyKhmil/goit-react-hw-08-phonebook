@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import {
-  getItems,
-  getFilterValue,
-  getAllContactsAsync,
-  deleteContactAsync,
+  deleteItem,
+  getContact,
+  getFilterWord,
+  fetchContacts,
 } from 'redux/contactsSlice';
 import {
   ContactsList,
@@ -16,8 +16,8 @@ import {
 export const ContactList = () => {
   const dispatch = useDispatch();
 
-  const items = useSelector(getItems);
-  const filter = useSelector(getFilterValue);
+  const items = useSelector(getContact);
+  const filter = useSelector(getFilterWord);
 
   const normalizedValue = filter.toLowerCase();
   const filteredContacts = items.filter(option =>
@@ -25,12 +25,12 @@ export const ContactList = () => {
   );
 
   const deleteContact = contactId => {
-    dispatch(deleteContactAsync(contactId));
+    dispatch(deleteItem(contactId));
   };
 
   useEffect(() => {
-    dispatch(getAllContactsAsync());
-  }, []);
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <ContactsList>

@@ -5,7 +5,7 @@ const NavAuth = () => {
   return (
     <div>
       <button className={style.button}>
-        <NavLink to="/register" className={style.link}>
+        <NavLink to="/signUp" className={style.link}>
           {' '}
           REGISTER
         </NavLink>

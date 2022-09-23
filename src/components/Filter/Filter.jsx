@@ -1,11 +1,11 @@
 import React from 'react';
 import style from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterItems, getFilterValue } from 'redux/contactsSlice';
+import { filterItems, getFilterWord } from 'redux/contactsSlice';
 
 function Filter() {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilterValue);
+  const filter = useSelector(getFilterWord);
 
  return (
    <label className={style.label}>

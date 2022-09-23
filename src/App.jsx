@@ -1,31 +1,36 @@
-import { Suspense } from 'react';
+import { lazy, Suspense} from 'react';
+// import { useDispatch } from 'react-redux';
+// import { useAuth } from 'hooks/useAuth';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { PublicRoute } from 'routes/PublicRoute';
-import { PrivateRoute } from 'routes/PrivateRoute';
+import  PublicRoute  from 'routes/PublicRoute';
+import  PrivateRoute  from 'routes/PrivateRoute';
+// import { operations } from 'redux/authSlice';
 
-import { Layout } from 'layout/Layout';
-import   Home  from 'pages/Home';
-import Register from 'pages/RegisterView/RegisterView';
-import Login from 'pages/LoginView/LoginView';
-import Contacts from 'pages/ContactsView/ContactsView';
+const Layout = lazy(() => import('layout/Layout'));
+const Home = lazy(() => import('pages/Home'));
+const Contacts = lazy(() => import('pages/ContactsView/ContactsView'));
+const SignUp = lazy(() => import('pages/RegisterView/RegisterView'));
+const LogIn = lazy(() => import('pages/LoginView/LoginView'));
+
 
 export const App = () => {
+  
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route
-            path="/"
             index
-            element={<PublicRoute restricted component={<Home />} />}
+            path="/"
+            element={<PublicRoute component={<Home />} />}
           />
           <Route
-            path="register"
+            path="signUp"
             element={
               <PublicRoute
                 restricted
                 redirectTo="contacts"
-                component={<Register />}
+                component={<SignUp />}
               />
             }
           />
@@ -35,7 +40,7 @@ export const App = () => {
               <PublicRoute
                 restricted
                 redirectTo="contacts"
-                component={<Login />}
+                component={<LogIn />}
               />
             }
           />

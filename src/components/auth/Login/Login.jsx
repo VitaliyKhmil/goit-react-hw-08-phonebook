@@ -1,45 +1,32 @@
 import { useDispatch } from 'react-redux';
-import style from 'components/Form/Form.module.css';
-import { Box } from 'styles/Box';
-import { loginUser } from 'redux/authSlice';
+// import style from 'components/Form/Form.module.css';
+// import { Box } from 'styles/Box';
+import { operations } from 'redux/authSlice';
+import { Formik } from 'formik';
+import { FormEl } from 'components/auth/Login/FormEl';
 
 const LoginView = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const user = {
-      email: e.target.elements.email.value,
-      password: e.target.elements.password.value,
-    };
-    dispatch(loginUser(user));
+  const handleSubmit = (values, { resetForm }) => {    
+    dispatch(operations.logIn(values));
+    resetForm();
   };
 
   return (
-    <Box
-      display="flex"
-      align-items="center"
-      flexDirection="column"
-      margin="0 auto"
-      width="350px"
-    >
-      <h1>USER LOGIN</h1>
-      <form onSubmit={handleSubmit}>
-        <label className={style.label}>
+    <Formik onSubmit={handleSubmit} initialValues={{ email: '', password: '' }}>
+      <FormEl>
+        <label>
           Email
-          <input type="email" name="email" className={style.input} />
+          <input type="email" name="email" />
         </label>
-        <label className={style.label}>
+        <label>
           Password
-          <input type="password" name="password" className={style.input} />
+          <input type="password" name="password" />
         </label>
-        <div className={style.buttonDiv}>
-          <button type="submit" className={style.button}>
-            LOGIN
-          </button>
-        </div>
-      </form>
-    </Box>
+        <button type="submit">LOGIN</button>
+      </FormEl>
+    </Formik>
   );
 };
 

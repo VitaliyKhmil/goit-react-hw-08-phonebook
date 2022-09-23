@@ -1,20 +1,22 @@
 import { useDispatch } from 'react-redux';
 import style from 'components/Form/Form.module.css';
 import { Box } from 'styles/Box';
-import { registerUser } from 'redux/authSlice';
+import { operations } from 'redux/authSlice';
+import { Formik } from 'formik';
+import { FormEl } from 'components/auth/Login/FormEl';
 
 
 const RegisterView = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = (values, { resetForm }) => {
     const user = {
-      name: e.target.elements.name.value,
-      email: e.target.elements.email.value,
-      password: e.target.elements.password.value,
+      name: values.name,
+      email: values.email,
+      password: values.password,
     };
-    dispatch(registerUser(user));
+    dispatch(operations.register(user));
+    resetForm();
   };
 
   return (
@@ -25,26 +27,30 @@ const RegisterView = () => {
       margin="0 auto"
       width="350px"
     >
-      <h1>REGISTRATION</h1>
-      <form onSubmit={handleSubmit}>
-        <label className={style.label}>
-          Name
-          <input type="name" name="name" className={style.input} />
-        </label>
-        <label className={style.label}>
-          Email
-          <input type="email" name="email" className={style.input} />
-        </label>
-        <label className={style.label}>
-          Password
-          <input type="password" name="password" className={style.input} />
-        </label>
-        <div className={style.buttonDiv}>
-          <button type="submit" className={style.button}>
-            REGISTER
-          </button>
-        </div>
-      </form>
+      <Formik
+        initialValues={{ name: '', email: '', password: '' }}
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
+        <FormEl>
+          <label>
+            Name
+            <input type="name" name="name"/>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email"/>
+          </label>
+          <label>
+            Password
+            <input type="password" name="password"/>
+          </label>
+          
+            <button type="submit">
+              REGISTER
+            </button>
+        </FormEl>
+      </Formik>
     </Box>
   );
 };
