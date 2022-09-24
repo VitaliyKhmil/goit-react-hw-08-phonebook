@@ -17,7 +17,6 @@ const register = createAsyncThunk('auth/register', async credentials => {
 const logIn = createAsyncThunk('auth/login', async credentials => {
   try {
     const data = await login(credentials);
-    console.log(data);
     token.set(data.token);
     toast.success('You are login!');
     return data;
@@ -79,7 +78,6 @@ export const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     [operations.logIn.fulfilled](state, action) {
-      console.log(action.payload);
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
