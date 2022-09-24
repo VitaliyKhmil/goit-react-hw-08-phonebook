@@ -3,6 +3,7 @@ import { operations } from 'redux/authSlice';
 import { Formik } from 'formik';
 import { FormEl, Input } from 'components/ui/formik';
 import { Label } from 'components/ui/formik/Label';
+import {ButtonLogin} from './Login.styled';
 
 const LoginView = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const LoginView = () => {
           Password
           <Input type="password" name="password" />
         </Label>
-        <button type="submit">LOGIN</button>
+        <ButtonLogin type="submit">LOGIN</ButtonLogin>
       </FormEl>
     </Formik>
   );

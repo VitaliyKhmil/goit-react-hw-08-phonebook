@@ -4,6 +4,7 @@ import { operations } from 'redux/authSlice';
 import { FormEl, Input } from 'components/ui/formik';
 import { Label } from 'components/ui/formik/Label';
 import { Formik } from 'formik';
+import { ButtonReg } from './Registration.styled';
 
 
 const RegisterView = () => {
@@ -33,7 +34,7 @@ const RegisterView = () => {
         <FormEl>
           <Label>
             Name
-            <Input type="name" name="name" />
+            <Input type="text" name="name" />
           </Label>
           <Label>
             Email
@@ -44,7 +45,7 @@ const RegisterView = () => {
             <Input type="password" name="password" />
           </Label>
 
-          <button type="submit">REGISTER</button>
+          <ButtonReg type="submit">REGISTER</ButtonReg>
         </FormEl>
       </Formik>
     </Box>

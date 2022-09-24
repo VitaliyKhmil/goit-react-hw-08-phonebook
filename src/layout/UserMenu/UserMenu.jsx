@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { operations } from 'redux/authSlice';
 import { useAuth } from 'hooks/useAuth';
 import { Box } from 'styles/Box';
-import { UserMenuText } from './UserMenu.styyled';
+import { UserMenuText, Userbutton } from './UserMenu.styled';
 
 const UserMenu = () => {
   const dispatch = useDispatch();
@@ -13,13 +13,10 @@ const UserMenu = () => {
 
   return (
     <Box display="flex" alignItems="center">
-     <UserMenuText> Welcome, {user.name}</UserMenuText>
-      <button
-        type="button"
-        onClick={() => dispatch(operations.logOut())}
-      >
+      <UserMenuText> Welcome, {user.name}</UserMenuText>
+      <Userbutton type="button" onClick={() => dispatch(operations.logOut())}>
         LOG OUT
-      </button>
+      </Userbutton>
     </Box>
   );
 };

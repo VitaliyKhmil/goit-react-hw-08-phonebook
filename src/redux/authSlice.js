@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const register = createAsyncThunk('auth/register', async credentials => {
   try {
-    const data = await signUp(credentials);
+    const  data  = await signUp(credentials);
     token.set(data.token);
     toast.success('You are registered!');
     return data;
@@ -63,7 +63,7 @@ export const operations = {
 };
 
 const initialState = {
-  user: { name: '', email: null },
+  user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
   isRefreshingUser: false,

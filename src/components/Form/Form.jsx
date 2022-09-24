@@ -1,13 +1,14 @@
-import style from './Form.module.css';
+import { LabelForm, InputForm, ButtonForm } from './Form.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, getContact } from 'redux/contactsSlice';
-import { Loader } from 'components/Loader/Loader';
 import Notiflix from 'notiflix';
+import { FormEl} from 'components/ui/formik';
+import { Formik } from 'formik';
 
 function Form() {
   const dispatch = useDispatch();
   const items = useSelector(getContact);
- 
+
   const handleSubmit = (values, { resetForm }) => {
     const newContact = {
       name: values.name,
@@ -27,35 +28,21 @@ function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label className={style.label}>
-        <span>Name</span>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          className={style.input}
-        />
-      </label>
-      <label className={style.label}>
-        <span>Number</span>
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required        
-          className={style.input}
-        />
-      </label>
-      <div className={style.buttonDiv}>
-        <button type="submit" className={style.button}>
-          {false ? <Loader /> : <div> Add contact</div>}
-        </button>
-      </div>
-    </form>
+    <Formik initialValues={{ name: '', number: '' }} onSubmit={handleSubmit}>
+      <FormEl>
+        <LabelForm>
+          Name
+          <InputForm type="text" name="name" />
+        </LabelForm>
+        <LabelForm>
+          Number
+          <InputForm type="tel" name="number" />
+        </LabelForm>
+        <ButtonForm type="submit">
+           Add contact
+        </ButtonForm>
+      </FormEl>
+    </Formik>
   );
 }
 

@@ -1,21 +1,14 @@
-import { NavLink } from 'react-router-dom';
-import style from 'layout/UserMenu/UserMenu.module.css';
+import { NavButton, HomeLink } from './NavAuth.styled';
 
 const NavAuth = () => {
   return (
     <div>
-      <button className={style.button}>
-        <NavLink to="/signUp" className={style.link}>
-          {' '}
-          REGISTER
-        </NavLink>
-      </button>
-      <button className={style.button}>
-        <NavLink to="/login" className={style.link}>
-          {' '}
-          LOG IN
-        </NavLink>
-      </button>
+      <NavButton>
+        <HomeLink to="/signUp"> REGISTER</HomeLink>
+      </NavButton>
+      <NavButton>
+        <HomeLink to="/login"> LOG IN</HomeLink>
+      </NavButton>
     </div>
   );
 };
