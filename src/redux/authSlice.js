@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { login, logout, signUp } from 'api/auth';
+import { login, logout, signUp, userCurrent } from 'api/auth';
 import { token } from 'api/authApi';
 import { toast } from 'react-toastify';
 
@@ -36,11 +36,30 @@ const logOut = createAsyncThunk('auth/logout', async () => {
   }
 });
 
+const fetchCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    }
+    token.set(persistedToken);
+    try {
+      const data = await userCurrent();
+      return data;
+    } catch (error) {
+      toast.error('Oops, something went wrong!');
+    }
+  }
+);
 
 export const operations = {
   register,
   logOut,
   logIn,
+  fetchCurrentUser,
 };
 
 const initialState = {
@@ -69,7 +88,18 @@ export const authSlice = createSlice({
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
-    },   
+    },
+    [operations.fetchCurrentUser.pending](state) {
+      state.isRefreshingUser = true;
+    },
+    [operations.fetchCurrentUser.fulfilled](state, action) {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+      state.isRefreshingUser = false;
+    },
+    [operations.fetchCurrentUser.rejected](state) {
+      state.isRefreshingUser = false;
+    },
   },
 });
 

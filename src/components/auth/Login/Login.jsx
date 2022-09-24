@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { operations } from 'redux/authSlice';
 import { Formik } from 'formik';
-import { FormEl } from 'components/auth/Login/FormEl';
+import { FormEl, Input } from 'components/ui/formik';
+import { Label } from 'components/ui/formik/Label';
 
 const LoginView = () => {
   const dispatch = useDispatch();
@@ -14,14 +15,14 @@ const LoginView = () => {
   return (
     <Formik onSubmit={handleSubmit} initialValues={{ email: '', password: '' }}>
       <FormEl>
-        <label>
+        <Label>
           Email
-          <input type="email" name="email" />
-        </label>
-        <label>
+          <Input type="email" name="email" />
+        </Label>
+        <Label>
           Password
-          <input type="password" name="password" />
-        </label>
+          <Input type="password" name="password" />
+        </Label>
         <button type="submit">LOGIN</button>
       </FormEl>
     </Formik>

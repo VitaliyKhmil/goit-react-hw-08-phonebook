@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { Box } from 'styles/Box';
 import { operations } from 'redux/authSlice';
+import { FormEl, Input } from 'components/ui/formik';
+import { Label } from 'components/ui/formik/Label';
 import { Formik } from 'formik';
-import { FormEl } from 'components/auth/Login/FormEl';
 
 
 const RegisterView = () => {
   const dispatch = useDispatch();
-
   const handleSubmit = (values, { resetForm }) => {
     const user = {
       name: values.name,
@@ -29,21 +29,20 @@ const RegisterView = () => {
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         onSubmit={handleSubmit}
-        autoComplete="off"
       >
         <FormEl>
-          <label>
+          <Label>
             Name
-            <input type="name" name="name" />
-          </label>
-          <label>
+            <Input type="name" name="name" />
+          </Label>
+          <Label>
             Email
-            <input type="email" name="email" />
-          </label>
-          <label>
+            <Input type="email" name="email" />
+          </Label>
+          <Label>
             Password
-            <input type="password" name="password" />
-          </label>
+            <Input type="password" name="password" />
+          </Label>
 
           <button type="submit">REGISTER</button>
         </FormEl>

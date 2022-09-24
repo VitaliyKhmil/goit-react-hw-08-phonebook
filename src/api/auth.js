@@ -9,4 +9,5 @@ export const login = credentials =>
 export const logout = () =>
   authApi.post(`/users/logout`).then(response => response.data);
 
- 
+ export const userCurrent = () =>
+   authApi.get(`/users/current`).then(response => response.data);
